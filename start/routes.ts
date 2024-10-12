@@ -3,4 +3,8 @@ import { create } from 'domain'
 
 const ProductsController = () => import('#controllers/products_controller')
 
-router.post('/products/add', [ProductsController, 'create'])
+router
+  .group(() => {
+    router.post('/add', [ProductsController, 'create'])
+  })
+  .prefix('products')

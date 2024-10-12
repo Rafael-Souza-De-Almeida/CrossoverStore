@@ -23,8 +23,8 @@ export default class ProductsController {
     const fields = request.only(['name', 'price', 'type', 'description'])
 
     product.merge({
-      image_path: `${uploadPath}/${imagePost.fileName}`,
       ...fields,
+      image_path: `${uploadPath}/${imagePost.fileName}`,
     })
 
     await product.save()

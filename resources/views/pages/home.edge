@@ -7,32 +7,33 @@
       Home
     </title>
     <meta name='viewport' content='width=device-width, initial-scale=1' />
-    {{-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> --}}
+    <link rel='stylesheet' type='text/css' media='screen' href='/resources/css/home.css' />
   </head>
   <body>
 
-    @each(product in products)
+    <div class="product-home">
 
-      <div>
+      @each(product in products)
 
-        <h1>
-          {{ product.name }}
-        </h1>
+        <div>
 
-        <img src="/products/image/{{ product.id }}" alt="{{ products.name }}" />
+          <img src="/products/image/{{ product.id }}" alt="{{ products.name }}" />
 
-        <p>
-          Preço: R${{ product.price.toFixed(2) }}
-        </p>
+          <a href="{{ route('products.show', {id : product.id}) }}">
+            <h3>
+              {{ product.name }}
+            </h3>
+          </a>
 
-        <p>
-          {{ product.description }}
-        </p>
+          <p>
+            Preço: R${{ product.price.toFixed(2) }}
+          </p>
 
-      </div>
+        </div>
 
-    @end
-    
-    
+      @end
+      
+    </div>
+
   </body>
 </html>

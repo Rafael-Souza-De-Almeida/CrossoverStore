@@ -9,6 +9,13 @@ router.get('/', async ({ view }) => {
 })
 
 router
+  .get('/show/:id', async ({ params, view }) => {
+    const product = await Product.findOrFail(params.id)
+    return view.render('pages/product', { product })
+  })
+  .as('products.show') // Nomeia a rota como 'products.show'
+
+router
   .group(() => {
     // router.get('/', [ProductsController, 'index'])
     router.get('/:id', [ProductsController, 'show']).where('id', router.matchers.number())

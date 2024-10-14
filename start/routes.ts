@@ -1,10 +1,16 @@
 import router from '@adonisjs/core/services/router'
+import Product from '#models/product'
 
 const ProductsController = () => import('#controllers/products_controller')
 
+router.get('/', async ({ view }) => {
+  const products = await Product.all()
+  return view.render('pages/home', { products: products })
+})
+
 router
   .group(() => {
-    router.get('/', [ProductsController, 'index'])
+    // router.get('/', [ProductsController, 'index'])
     router.get('/:id', [ProductsController, 'show']).where('id', router.matchers.number())
     router.get('/type', [ProductsController, 'findByType'])
     router

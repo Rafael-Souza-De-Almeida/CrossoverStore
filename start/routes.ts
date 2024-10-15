@@ -3,10 +3,12 @@ import Product from '#models/product'
 
 const ProductsController = () => import('#controllers/products_controller')
 
-router.get('/', async ({ view }) => {
-  const products = await Product.all()
-  return view.render('pages/home', { products: products })
-})
+router
+  .get('/', async ({ view }) => {
+    const products = await Product.all()
+    return view.render('pages/home', { products: products })
+  })
+  .as('products.home')
 
 router
   .get('/show/:id', async ({ params, view }) => {

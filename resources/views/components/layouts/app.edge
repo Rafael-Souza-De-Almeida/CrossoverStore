@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Crossover Store
+    </title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+  </head>
+  <body>
+    @include('components/layouts/partials/header')
+
+    {{{ await $slots.main() }}}
+  </body>
+</html>

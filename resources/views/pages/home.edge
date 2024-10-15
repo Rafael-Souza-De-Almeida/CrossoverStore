@@ -1,39 +1,45 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
-    <title>
-      Home
-    </title>
-    <meta name='viewport' content='width=device-width, initial-scale=1' />
-    <link rel='stylesheet' type='text/css' media='screen' href='/resources/css/home.css' />
-  </head>
-  <body>
+@layouts.app()
 
-    <div class="product-home">
+  <div class="grid gap-16 md:grid-cols-5 mt-36 md:gap-8">
 
-      @each(product in products)
+    @each(product in products)
 
-        <div>
+      <div
+        class="bg-white  p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:scale-105"
+      >
 
-          <img src="/products/image/{{ product.id }}" alt="{{ products.name }}" />
+        <a href="{{ route('products.show', {id : product.id}) }}" class="hover:opacity-80 block">
+          <div>
+            <img
+              class="rounded-lg w-full h-128 object-cover"
+              src="/products/image/{{ product.id }}"
+              alt="{{ product.name }}"
+            />
 
-          <a href="{{ route('products.show', {id : product.id}) }}">
-            <h3>
-              {{ product.name }}
-            </h3>
-          </a>
+            <div class="mt-4 text-center">
+              <h2 class="text-xl font-semibold text-gray-800">
+                {{ product.name }}
+              </h2>
 
-          <p>
-            Preço: R${{ product.price.toFixed(2) }}
-          </p>
+              <p class="text-xl font-bold text-[#f66000] mt-2">
+                R${{ product.price.toFixed(2) }}
+              </p>
+            </div>
+          </div>
+        </a>
 
-        </div>
+        <button
+          class="text-white w-full h-12 bg-[#f66000] rounded-full hover:bg-[#d94e00] transition-colors duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg mt-4"
+        >
+          Detalhar
+      </button>
 
-      @end
-      
-    </div>
+      </div>
 
-  </body>
-</html>
+    @endeach
+    
+  </div>
+
+@end
+
+    

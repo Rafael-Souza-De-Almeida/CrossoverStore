@@ -1,20 +1,80 @@
 @layouts.app()
   <main>
 
-    <h1>
-      {{ product.name }}
-    </h1>
+    <div class="flex gap-x-44 container mx-auto mt-24 mb-24">
 
-    <img src="/products/image/{{ product.id }}" alt="{{ product.name }}" />
+      <div>
 
-    <p>
-      {{ product.price.toFixed(2) }}
-    </p>
+        <img class="w-[500px]" src="/products/image/{{ product.id }}" alt="{{ product.name }}" />
 
-    <p>
+      </div>
 
-      {{ product.description }}
-    </p>
+      <div class="flex flex-col items-center w-[500px]">
+        <h1 class="text-3xl text-[#f66000] mb-12 text-center">
+          {{ product.name }}
+        </h1>
+
+        <p class="text-xl">
+          R${{ product.price.toFixed(2) }}
+        </p>
+
+        @if(product.type.toLowerCase() === "camisa")
+          <div class="mt-6">
+
+            <h3 class="text-[#f66000] text-lg mb-8 ">
+              Tamanhos
+            </h3>
+
+            <div class="flex space-x-8 mb-8">
+
+              <button
+                class="outline outline-2 border-[#f66000] text-[#f66000] p-2 w-12 hover:bg-[#f66000] hover:text-white"
+              >P</button>
+              <button
+                class="outline outline-2 border-[#f66000] text-[#f66000] p-2 w-12 hover:bg-[#f66000] hover:text-white"
+              >M</button>
+              <button
+                class="outline outline-2 border-[#f66000] text-[#f66000] p-2 w-12 hover:bg-[#f66000] hover:text-white"
+              >G</button>
+              <button
+                class="outline outline-2 border-[#f66000] text-[#f66000] p-2 w-12 hover:bg-[#f66000] hover:text-white"
+              >XL</button>
+
+            </div>
+
+          </div>
+
+        @end
+         
+        
+        <button
+          class="text-white w-96 h-12 bg-[#f66000] rounded-full hover:bg-[#d94e00] transition-colors duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg mt-4"
+        >
+
+          Adicionar ao carrinho
+
+
+        </button>
+
+      </div>
+
+    </div>
+
+    <hr />
+
+    <div class="mt-10 ml-12 space-y-8">
+
+      <h3 class="text-3xl text-[#f66000]">
+        Descrição
+      </h3>
+
+      <p class="text-slate-500 text-lg text-left">
+
+        {{ product.description }}
+      </p>
+
+    </div>
+
   </main>
 @end
 

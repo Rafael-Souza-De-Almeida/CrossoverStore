@@ -18,6 +18,14 @@ router
   .as('products.show') // Nomeia a rota como 'products.show'
 
 router
+  .get('/products/view', async ({ view }) => {
+    return view.render('pages/add_product')
+  })
+  .as('products.addForm')
+
+router.post('/products/add', [ProductsController, 'create']).as('products.add')
+
+router
   .group(() => {
     // router.get('/', [ProductsController, 'index'])
     router.get('/:id', [ProductsController, 'show']).where('id', router.matchers.number())
@@ -25,7 +33,7 @@ router
     router
       .get('/image/:id', [ProductsController, 'showImage'])
       .where('id', router.matchers.number())
-    router.post('/add', [ProductsController, 'create'])
+    //router.post('/add', [ProductsController, 'create']).as('products.add')
     router.delete('/:id', [ProductsController, 'delete']).where('id', router.matchers.number())
     router.put('/:id', [ProductsController, 'update']).where('id', router.matchers.number())
   })

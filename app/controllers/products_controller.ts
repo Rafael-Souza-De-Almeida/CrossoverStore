@@ -52,7 +52,7 @@ export default class ProductsController {
 
     await product.save()
 
-    return response.created(product)
+    return response.redirect().toRoute('products.show', { id: product.id })
   }
 
   async show({ params }: HttpContext) {

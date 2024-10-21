@@ -1,0 +1,40 @@
+@layouts.app()
+
+  <h1 class="text-3xl mt-16 text-center mb-12">
+    Adicionar Produto
+  </h1>
+
+  <form
+    class="flex flex-col justify-center items-center space-y-6"
+    action="{{ route('products.add') }}"
+    method="POST"
+    enctype="multipart/form-data"
+  >
+
+    <label>Nome do Produto:</label>
+    <input class="border-2 rounded-md px-2 w-60 border-black" type="text" name="name" id="name" required />
+
+    <label>Preço do Produto:</label>
+    <input
+      class="border-2 rounded-md px-2 w-60 border-black"
+      type="number"
+      name="price"
+      id="price"
+      step="0.01"
+      required
+    />
+
+    <label for="description">Description:</label>
+    <textarea class="border-2 rounded-md px-2 w-60 border-black" name="description" id="description" required></textarea>
+
+    <label for="type">Type:</label>
+    <input class="border-2 rounded-md px-4 w-60 border-black" type="text" name="type" id="type" required />
+
+    <label for="image">Product Image:</label>
+    <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png" required />
+
+    <button type="submit">Adicionar Produto</button>
+
+  </form>
+
+@end

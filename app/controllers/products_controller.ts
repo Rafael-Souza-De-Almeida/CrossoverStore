@@ -1,13 +1,13 @@
-import type { HttpContext } from '@adonisjs/core/http'
+import { HttpContext } from '@adonisjs/core/http'
 import Product from '#models/product'
 import { cuid } from '@adonisjs/core/helpers'
 import app from '@adonisjs/core/services/app'
 
 export default class ProductsController {
-  async index() {
+  async index({ view }: HttpContext) {
     const allProducts = await Product.all()
 
-    return allProducts
+    return view.render('pages/home', { products: allProducts })
   }
 
   async findByType({ request }: HttpContext) {
@@ -55,10 +55,10 @@ export default class ProductsController {
     return response.redirect().toRoute('products.show', { id: product.id })
   }
 
-  async show({ params }: HttpContext) {
+  async show({ params, view }: HttpContext) {
     const product = await Product.findOrFail(params.id)
 
-    return product
+    return view.render('pages/product', { product })
   }
 
   async delete({ params }: HttpContext) {
@@ -103,5 +103,9 @@ export default class ProductsController {
     } catch (error) {
       return response.notFound('Produto não encontrado ou imagem não disponível')
     }
+  }
+
+  async addForm({ view }: HttpContext) {
+    return view.render('pages/add_product')
   }
 }

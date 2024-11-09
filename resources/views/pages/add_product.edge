@@ -1,22 +1,28 @@
 @layouts.app()
 
-  <h1 class="text-3xl mt-16 text-center mb-12">
+  <h1 class="text-3xl mt-16 mb-12 text-center">
     Adicionar Produto
   </h1>
 
   <form
-    class="flex flex-col justify-center items-center space-y-6"
+    class="flex flex-col space-y-4 items-center"
     action="{{ route('products.add') }}"
     method="POST"
     enctype="multipart/form-data"
   >
 
     <label>Nome do Produto:</label>
-    <input class="border-2 rounded-md px-2 w-60 border-black" type="text" name="name" id="name" required />
+    <input
+      class="border-2 rounded-md px-2 w-96 h-8 border-black"
+      type="text"
+      name="name"
+      id="name"
+      required
+    />
 
     <label>Preço do Produto:</label>
     <input
-      class="border-2 rounded-md px-2 w-60 border-black"
+      class="border-2 rounded-md px-2 w-96 h-8 border-black"
       type="number"
       name="price"
       id="price"
@@ -25,15 +31,44 @@
     />
 
     <label for="description">Description:</label>
-    <textarea class="border-2 rounded-md px-2 w-60 border-black" name="description" id="description" required></textarea>
+    <textarea
+      class="border-2 rounded-md px-2 w-96 h-36 border-black"
+      name="description"
+      id="description"
+      required
+    ></textarea>
 
-    <label for="type">Type:</label>
-    <input class="border-2 rounded-md px-4 w-60 border-black" type="text" name="type" id="type" required />
+    <div class="flex space-x-4">
 
-    <label for="image">Product Image:</label>
+      <span for="type">Type</span>
+      <select name="type" id="type" class="border-2 border-black">
+        <option value="Camisa">
+          Camisa
+        </option>
+
+        <option value="Bola">
+          Bola
+        </option>
+
+        <option value="Acessório">
+          Acessório
+        </option>
+
+        <option value="Tenis">
+          Tenis
+        </option>
+      </select>
+
+    </div>
+
+    <label for="image">Product Image</label>
     <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png" required />
 
-    <button type="submit">Adicionar Produto</button>
+    <div>
+
+      <button type="submit">Adicionar Produto</button>
+
+    </div>
 
   </form>
 

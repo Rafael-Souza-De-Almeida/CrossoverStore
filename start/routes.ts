@@ -1,40 +1,23 @@
 import router from '@adonisjs/core/services/router'
-import Product from '#models/product'
 
 const ProductsController = () => import('#controllers/products_controller')
 
-router
-  .get('/', async ({ view }) => {
-    const products = await Product.all()
-    return view.render('pages/home', { products: products })
-  })
-  .as('products.home')
-
-router
-  .get('/show/:id', async ({ params, view }) => {
-    const product = await Product.findOrFail(params.id)
-    return view.render('pages/product', { product })
-  })
-  .as('products.show') // Nomeia a rota como 'products.show'
-
-router
-  .get('/products/view', async ({ view }) => {
-    return view.render('pages/add_product')
-  })
-  .as('products.addForm')
-
-router.post('/products/add', [ProductsController, 'create']).as('products.add')
+router.get('/', [ProductsController, 'index']).as('products.home')
 
 router
   .group(() => {
-    // router.get('/', [ProductsController, 'index'])
-    router.get('/:id', [ProductsController, 'show']).where('id', router.matchers.number())
+    router
+      .get('/:id', [ProductsController, 'show'])
+      .where('id', router.matchers.number())
+      .as('products.show')
+
     router.get('/type', [ProductsController, 'findByType'])
+    router.post('/add', [ProductsController, 'create']).as('products.add')
     router
       .get('/image/:id', [ProductsController, 'showImage'])
       .where('id', router.matchers.number())
-    //router.post('/add', [ProductsController, 'create']).as('products.add')
     router.delete('/:id', [ProductsController, 'delete']).where('id', router.matchers.number())
     router.put('/:id', [ProductsController, 'update']).where('id', router.matchers.number())
+    router.get('/addNew', [ProductsController, 'addForm']).as('products.addForm')
   })
   .prefix('products')

@@ -1,5 +1,40 @@
 @layouts.app()
 
+  <script type="module">
+    import KeenSlider from "https://cdn.jsdelivr.net/npm/keen-slider@6.8.6/+esm";
+    
+    const keenSlider = new KeenSlider("#keen-slider", {
+      loop: true,
+      slides: {
+        origin: "center",
+        perView: 1.25,
+        spacing: 16
+      },
+      breakpoints: {
+        "(min-width: 1024px)": {
+          slides: {
+            origin: "auto",
+            perView: 1.5,
+            spacing: 32
+          }
+        }
+      }
+    });
+    
+    document.addEventListener("DOMContentLoaded", () => {
+      const buttons = {
+        previous: document.getElementById("keen-slider-previous"),
+        next: document.getElementById("keen-slider-next"),
+        previousDesktop: document.getElementById("keen-slider-previous-desktop"),
+        nextDesktop: document.getElementById("keen-slider-next-desktop")
+      };
+      buttons.previous?.addEventListener("click", () => keenSlider.prev());
+      buttons.next?.addEventListener("click", () => keenSlider.next());
+      buttons.previousDesktop?.addEventListener("click", () => keenSlider.prev());
+      buttons.nextDesktop?.addEventListener("click", () => keenSlider.next());
+    });
+  </script>
+
   <section class="bg-black">
 
     <div class="flex flex-col h-screen items-center">
@@ -33,7 +68,7 @@
 
       @svg('game-icons:brazil', { class: 'w-96 h-16 text-primary' })
 
-      <h3 class="text-xl">
+      <h3 class="text-xl text-primary">
         Entrega para todo Brasil
       </h3>
 
@@ -43,7 +78,7 @@
 
       @svg('heroicons:truck', { class: 'w-96 h-16 text-primary' })
 
-      <h3 class=" text-xl">
+      <h3 class=" text-xl text-primary">
         Frete Grátis na primeira compra
       </h3>
     </div>
@@ -52,27 +87,86 @@
 
       @svg('game-icons:basketball-jersey', {class: 'w-96 h-16 text-primary' })
 
-      <h3 class=" text-xl">
+      <h3 class=" text-xl text-primary">
         Camisas de todos os times da NBA
       </h3>
     </div>
 
   </section>
 
-  <section class="bg-black">
+  <section class="bg-black mt-48 p-36">
+    <div class="max-w-[1340px] mx-auto px-4 py-12">
+      <div class="grid lg:grid-cols-3 gap-16 items-center">
+        <div class="max-w-xl text-center lg:text-left">
+          <h2 class="text-4xl font-bold text-primary">
+            Nossos Produtos
+          </h2>
+          <p class="mt-4 text-white text-lg">
+            Explore uma seleção de produtos e camisas de basquete para levar seu estilo e desempenho para o próximo nível.
+          </p>
+          <div class="hidden lg:flex gap-4 mt-8">
+            <button
+              id="keen-slider-previous"
+              aria-label="Previous slide"
+              class="rounded-full border border-primary p-3 text-primary hover:bg-primary hover:text-white"
+            >
+              @svg('heroicons:arrow-left-16-solid')
+            </button>
+            <button
+              id="keen-slider-next"
+              aria-label="Next slide"
+              class="rounded-full border border-primary p-3 text-primary hover:bg-primary hover:text-white"
+            >
+              @svg('heroicons:arrow-right-16-solid')
+            </button>
+          </div>
+        </div>
 
+        <div id="keen-slider" class="keen-slider lg:col-span-2 w-64">
+          <!-- Reduzir o tamanho para w-64 -->
+          @each(product in products)
+
+            <div
+              class="keen-slider__slide border border-primary p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:scale-105"
+            >
+              <a href="{{ route('products.show', {id : product.id}) }}" class="hover:opacity-80 block">
+                <img
+                  class="rounded-lg w-5/6 h-64 object-cover mx-auto"
+                  src="/products/image/{{ product.id }}"
+                  alt="{{ product.name }}"
+                />
+                <div class="mt-4 text-center">
+                  <h2 class="text-lg font-semibold text-white">
+                    {{ product.name }}
+                  </h2>
+                  <p class="text-lg font-bold text-primary mt-2">
+                    R${{ product.price.toFixed(2) }}
+                  </p>
+                </div>
+              </a>
+              <button
+                class="text-white w-full h-10 bg-primary rounded-full hover:bg-[#d94e00] transition-colors duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg mt-4 mx-auto block"
+              >
+                Detalhar
+              </button>
+            </div>
+          @end
+        </div>
+
+      </div>
+    </div>
   </section>
 
-  <div class="container mx-auto ">
-
+  {{-- <div class="container mx-auto ">
+  
     <div class="grid gap-8 md:grid-cols-4 mt-36 md:gap-8">
-
+  
       @each(product in products)
-
+  
         <div
           class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:scale-105"
         >
-
+  
           <a href="{{ route('products.show', {id : product.id}) }}" class="hover:opacity-80 block">
             <div>
               <img
@@ -80,33 +174,32 @@
                 src="/products/image/{{ product.id }}"
                 alt="{{ product.name }}"
               />
-
+  
               <div class="mt-4 text-center">
                 <h2 class="text-xl font-semibold text-gray-800">
                   {{ product.name }}
                 </h2>
-
+  
                 <p class="text-xl font-bold text-primary mt-2">
                   R${{ product.price.toFixed(2) }}
                 </p>
               </div>
             </div>
           </a>
-
+  
           <button
             class="text-white w-full h-12 bg-primary rounded-full hover:bg-[#d94e00] transition-colors duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg mt-4"
           >
             Detalhar
         </button>
-
+  
         </div>
-
+  
       @endeach
       
     </div>
-
-  </div>
+  
+  </div> --}}
 
 @end
 
-    

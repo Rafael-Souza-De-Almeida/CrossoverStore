@@ -1,0 +1,44 @@
+@layouts.app()
+
+  <div class="flex flex-col justify-center items-center w-full px-72 mt-48 space-y-12">
+
+    <h1 class="text-primary text-6xl">
+      Login
+    </h1>
+
+    <form
+      class="flex flex-col space-y-2"
+      action="{{ route('auth.save') }}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      <label>Email</label>
+      <input
+        type="text"
+        placeholder="Email"
+        class="border border-slate-500 w-96 mt-4 rounded-lg p-2"
+        name="email"
+      />
+
+      <label>Senha</label>
+      <input
+        type="password"
+        placeholder="Senha"
+        class="border border-slate-500 w-96 mt-4 rounded-lg p-2"
+        name="password"
+      />
+
+      <div>
+        <button type="submit" class="mt-8 text-white w-96 py-3 px-4 bg-primary rounded-full hover:bg-primary">
+          Entrar
+        </button>
+      </div>
+    </form>
+
+    <p class="w-full mt-4 text-sm text-center text-gray-500">
+      Não possui uma conta? <a href="{{ route('users.create') }}" class="text-blue-500 underline">Cadastre-se aqui</a>
+    </p>
+
+  </div>
+
+@end

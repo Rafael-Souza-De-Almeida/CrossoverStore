@@ -1,8 +1,18 @@
 import router from '@adonisjs/core/services/router'
+import { middleware } from './kernel.js'
 
 const ProductsController = () => import('#controllers/products_controller')
+const AuthController = () => import('#controllers/auth_controller')
+const UsersController = () => import('#controllers/users_controller')
 
 router.get('/', [ProductsController, 'index']).as('products.home')
+
+router.get('/login', [AuthController, 'create']).as('auth.create')
+router.post('/login', [AuthController, 'save']).as('auth.save')
+router.get('/logout', [AuthController, 'delete']).use(middleware.auth()).as('auth.logout')
+
+router.get('/cadastro', [UsersController, 'create']).as('users.create')
+router.post('/cadastro', [UsersController, 'save']).as('users.save')
 
 router
   .group(() => {

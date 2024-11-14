@@ -1,0 +1,68 @@
+@layouts.app()
+
+  <div class="flex flex-col justify-center items-center w-full px-72 mt-48 space-y-12">
+
+    <h1 class="text-primary text-6xl">
+      Crie sua conta
+    </h1>
+
+    <form
+      class="flex flex-col space-y-2"
+      action="{{ route('users.save') }}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+
+      <label>Nome</label>
+      <input
+        required="true"
+        type="text"
+        placeholder="Nome"
+        class="border border-slate-500 w-96 mt-4 rounded-lg p-2"
+        name="fullName"
+        id="fullName"
+      />
+
+      <label>Email</label>
+      <input
+        required="true"
+        type="text"
+        placeholder="Email"
+        class="border border-slate-500 w-96 mt-4 rounded-lg p-2"
+        name="email"
+        id="email"
+      />
+
+      <label>Senha</label>
+      <input
+        required="true"
+        type="password"
+        placeholder="Senha"
+        class="border border-slate-500 w-96 mt-4 rounded-lg p-2"
+        name="password"
+        id="password"
+      />
+
+      <label>Confirme a senha</label>
+      <input
+        required="true"
+        type="password"
+        placeholder="Confirme a senha"
+        class="border border-slate-500 w-96 mt-4 rounded-lg p-2 mb-4"
+        name="password_confirmation"
+        id="password_confirmation"
+      />
+
+      <div>
+        <button type="submit" class="mt-8 text-white w-96 py-3 px-4 bg-primary rounded-full hover:bg-primary">
+          Cadastrar
+        </button>
+      </div>
+    </form>
+
+    <p class="w-full mt-4 text-sm text-center text-gray-500">
+      Se você já possuir uma conta <a href="{{ route('auth.create') }}" class="text-blue-600 underline" data-primary="blue-600">entre aqui</a>
+    </p>
+  </div>
+
+@end

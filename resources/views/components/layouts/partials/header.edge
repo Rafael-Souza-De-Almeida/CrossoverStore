@@ -41,10 +41,31 @@
     </div>
 
     <div>
-      <button class="text-white w-24 py-3 px-4 bg-[#f66000] rounded-full hover:bg-[#f65e00d9]">
-        Login
-          </button>
 
+      @if(auth.isAuthenticated)
+
+        <div class="flex space-x-4 items-center">
+          <img src="https://avatar.iran.liara.run/public/boy" class="rounded-full h-12" />
+
+          <p class="text-white">
+            Olá, {{auth.user.fullName}}!
+          </p>
+
+          @svg('heroicons:shopping-cart-solid', {class: "text-white w-8 h-24"})
+        </div>
+
+      @else
+      
+        <a href="{{ route('auth.create') }}">
+
+          <button class="text-white w-24 py-3 px-4 bg-[#f66000] rounded-full hover:bg-[#f65e00d9]">
+            Login
+        </button>
+        </a>
+
+      @endif
+      
+      
     </div>
 
   </nav>

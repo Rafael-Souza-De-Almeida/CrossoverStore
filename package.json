@@ -64,6 +64,7 @@
     "@iconify-json/game-icons": "^1.2.0",
     "@iconify-json/heroicons": "^1.2.1",
     "@vinejs/vine": "^2.1.0",
+    "alpinejs": "^3.14.3",
     "better-sqlite3": "^11.3.0",
     "edge-iconify": "^2.0.1",
     "edge.js": "^6.2.0",

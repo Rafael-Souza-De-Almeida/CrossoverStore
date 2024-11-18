@@ -26,6 +26,6 @@ export default class AuthController {
   async delete({ auth, response }: HttpContext) {
     await auth.use('web').logout()
 
-    return response.redirect().toRoute('products.show')
+    return response.redirect().toRoute('auth.create')
   }
 }

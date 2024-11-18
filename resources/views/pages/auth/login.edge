@@ -6,6 +6,15 @@
       Login
     </h1>
 
+    @flashMessage('errors.login')
+      <div>
+        <p class="text-lg text-red-500">
+          {{ $message }}
+        </p>
+      </div>
+
+    @end
+    
     <form
       class="flex flex-col space-y-2"
       action="{{ route('auth.save') }}"

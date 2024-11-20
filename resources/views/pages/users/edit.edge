@@ -1,0 +1,46 @@
+@layouts.app()
+
+  <div class="flex flex-col justify-center items-center w-full px-72 mt-48 space-y-12">
+
+    <h1 class="text-primary text-6xl">
+      Edite Sua Conta
+    </h1>
+
+    <form
+      class="flex flex-col space-y-2"
+      action="{{ route('users.update') }}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+
+      <label>Nome</label>
+      <input
+        required="true"
+        type="text"
+        placeholder="Nome"
+        class="border border-slate-500 w-96 mt-4 rounded-lg p-2"
+        name="fullName"
+        id="fullName"
+        value="{{ user.fullName }}"
+      />
+
+      <label>Email</label>
+      <input
+        required="true"
+        type="text"
+        placeholder="Email"
+        class="border border-slate-500 w-96 mt-4 rounded-lg p-2"
+        name="email"
+        id="email"
+        value="{{ user.email }}"
+      />
+
+      <div>
+        <button type="submit" class="mt-8 text-white w-96 py-3 px-4 bg-primary rounded-full hover:bg-primary">
+          Editar Conta
+        </button>
+      </div>
+    </form>
+  </div>
+
+@end

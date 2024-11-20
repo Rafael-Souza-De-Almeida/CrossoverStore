@@ -11,8 +11,10 @@ router.get('/login', [AuthController, 'create']).as('auth.create')
 router.post('/login', [AuthController, 'save']).as('auth.save')
 router.get('/logout', [AuthController, 'delete']).use(middleware.auth()).as('auth.logout')
 
-router.get('/cadastro', [UsersController, 'create']).as('users.create')
-router.post('/cadastro', [UsersController, 'save']).as('users.save')
+router.get('/sign-up', [UsersController, 'create']).as('users.create')
+router.post('/sign-up', [UsersController, 'save']).as('users.save')
+router.get('/user/edit', [UsersController, 'edit']).use(middleware.auth()).as('users.edit')
+router.post('/user/update', [UsersController, 'update']).use(middleware.auth()).as('users.update')
 
 router
   .group(() => {

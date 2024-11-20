@@ -14,7 +14,6 @@ export default class AuthController {
       const user = await User.verifyCredentials(validatingUser.email, validatingUser.password)
 
       await auth.use('web').login(user)
-      console.log(auth.isAuthenticated)
     } catch (exception) {
       session.flashOnly(['email'])
       session.flash({ errors: { login: 'Email ou senha incorretos' } })

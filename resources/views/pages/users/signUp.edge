@@ -24,6 +24,14 @@
       />
 
       <label>Email</label>
+      @flashMessage('errors.login')
+        <div>
+          <p class="text-sm text-red-500">
+            {{ $message }}
+          </p>
+        </div>
+
+      @end
       <input
         required="true"
         type="text"

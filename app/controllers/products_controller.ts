@@ -1,6 +1,7 @@
 import { HttpContext } from '@adonisjs/core/http'
 import Product from '#models/product'
 import { cuid } from '@adonisjs/core/helpers'
+import { createProductValidator } from '#validators/product'
 import app from '@adonisjs/core/services/app'
 
 export default class ProductsController {
@@ -43,7 +44,7 @@ export default class ProductsController {
 
     const product = new Product()
 
-    const fields = request.only(['name', 'price', 'type', 'description'])
+    const fields = await request.validateUsing(createProductValidator)
 
     product.merge({
       ...fields,

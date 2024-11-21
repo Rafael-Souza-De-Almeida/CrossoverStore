@@ -6,15 +6,6 @@
       Login
     </h1>
 
-    @flashMessage('errors.login')
-      <div>
-        <p class="text-lg text-red-500">
-          {{ $message }}
-        </p>
-      </div>
-
-    @end
-    
     <form
       class="flex flex-col space-y-2"
       action="{{ route('auth.save') }}"
@@ -22,6 +13,14 @@
       enctype="multipart/form-data"
     >
       <label>Email</label>
+      @flashMessage('errors.login')
+        <div>
+          <p class="text-sm text-red-500">
+            {{ $message }}
+          </p>
+        </div>
+
+      @end
       <input
         type="text"
         placeholder="Email"

@@ -8,14 +8,20 @@ export default class UsersController {
     return view.render('pages/users/signUp')
   }
 
-  async save({ request, response }: HttpContext) {
-    const createUser = await request.validateUsing(createUserValidator)
+  async save({ request, response, session }: HttpContext) {
+    try {
+      const createUser = await request.validateUsing(createUserValidator)
 
-    const user = new User()
+      const user = new User()
 
-    user.merge(createUser)
+      user.merge(createUser)
 
-    await user.save()
+      await user.save()
+    } catch (exception) {
+      session.flashOnly(['email'])
+      session.flash({ errors: { login: 'Email Já utilizado' } })
+      return response.redirect().back()
+    }
 
     return response.redirect().toRoute('auth.create')
   }

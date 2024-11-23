@@ -9,15 +9,15 @@ export default class UsersController {
   }
 
   async save({ request, response, session }: HttpContext) {
+    const createUser = await request.validateUsing(createUserValidator)
     try {
-      const createUser = await request.validateUsing(createUserValidator)
-
       const user = new User()
 
       user.merge(createUser)
 
       await user.save()
     } catch (exception) {
+      console.log(exception)
       session.flashOnly(['email'])
       session.flash({ errors: { login: 'Email Já utilizado' } })
       return response.redirect().back()

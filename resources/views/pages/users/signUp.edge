@@ -34,7 +34,7 @@
       @end
       <input
         required="true"
-        type="text"
+        type="email"
         placeholder="Email"
         class="border border-slate-500 w-96 mt-4 rounded-lg p-2"
         name="email"
@@ -42,6 +42,14 @@
       />
 
       <label>Senha</label>
+      @flashMessage('errors.password')
+        <div>
+          <p class="text-sm text-red-500">
+            {{ $message }}
+          </p>
+        </div>
+
+      @end
       <input
         required="true"
         type="password"

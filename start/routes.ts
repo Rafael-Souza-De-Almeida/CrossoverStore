@@ -24,12 +24,18 @@ router
       .as('products.show')
 
     router.get('/type', [ProductsController, 'findByType'])
-    router.post('/add', [ProductsController, 'create']).as('products.add')
+    router
+      .post('/add', [ProductsController, 'create'])
+      .as('products.add')
+      .use(middleware.auth_admin())
     router
       .get('/image/:id', [ProductsController, 'showImage'])
       .where('id', router.matchers.number())
     router.delete('/:id', [ProductsController, 'delete']).where('id', router.matchers.number())
     router.put('/:id', [ProductsController, 'update']).where('id', router.matchers.number())
-    router.get('/addNew', [ProductsController, 'addForm']).as('products.addForm')
+    router
+      .get('/addNew', [ProductsController, 'addForm'])
+      .as('products.addForm')
+      .use(middleware.auth_admin())
   })
   .prefix('products')

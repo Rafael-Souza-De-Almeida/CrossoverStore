@@ -36,10 +36,13 @@
         <li>
           <a href="/" class="text-white hover:text-[#f66000] text-lg">Times</a>
         </li>
-        <li>
-          <a href="{{ route('products.addForm') }}" class="text-white hover:text-[#f66000] text-lg">Adicionar Produto</a>
-        </li>
 
+        @if(auth.isAuthenticated && auth.user.role === 'admin')
+          <li>
+            <a href="{{ route('products.addForm') }}" class="text-white hover:text-[#f66000] text-lg">Adicionar Produto</a>
+          </li>
+        @end
+        
       </ul>
 
     </div>

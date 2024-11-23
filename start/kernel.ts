@@ -8,6 +8,7 @@
 |
 */
 
+import auth_admin from '#middleware/auth_admin_middleware'
 import router from '@adonisjs/core/services/router'
 import server from '@adonisjs/core/services/server'
 
@@ -47,4 +48,5 @@ router.use([
 export const middleware = router.named({
   guest: () => import('#middleware/guest_middleware'),
   auth: () => import('#middleware/auth_middleware'),
+  auth_admin: () => import('#middleware/auth_admin_middleware'),
 })

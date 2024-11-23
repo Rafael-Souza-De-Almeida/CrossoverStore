@@ -3,6 +3,9 @@ import Product from '#models/product'
 import { cuid } from '@adonisjs/core/helpers'
 import { createProductValidator } from '#validators/product'
 import app from '@adonisjs/core/services/app'
+import fs from 'fs'
+import path from 'path'
+import { Application } from '@adonisjs/core/app'
 
 export default class ProductsController {
   async index({ view }: HttpContext) {
@@ -62,12 +65,27 @@ export default class ProductsController {
     return view.render('pages/product', { product })
   }
 
-  async delete({ params }: HttpContext) {
-    const productIdToDelete = await Product.findOrFail(params.id)
+  public async delete({ params, response }: HttpContext) {
+    try {
+      const product = await Product.findOrFail(params.id)
 
-    await productIdToDelete.delete()
+      if (product.image_path) {
+        const imagePath = product.image_path
+        if (fs.existsSync(imagePath)) {
+          fs.unlinkSync(imagePath)
+        }
+      }
 
-    return { sucess: `${params.id} removido` }
+      await product.delete()
+
+      return response
+        .status(200)
+        .json({ success: `Produto com ID ${params.id} foi removido com sucesso` })
+    } catch (error) {
+      return response
+        .status(500)
+        .json({ error: 'Erro ao excluir o produto', details: error.message })
+    }
   }
 
   async update({ params, request, response }: HttpContext) {

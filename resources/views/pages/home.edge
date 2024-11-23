@@ -132,7 +132,7 @@
               <a href="{{ route('products.show', {id : product.id}) }}" class="hover:opacity-80 block">
                 <img
                   class="rounded-lg w-5/6 h-64 object-cover mx-auto"
-                  src="/products/image/{{ product.id }}"
+                  src="{{ route('show.image', {id: product.id}) }}"
                   alt="{{ product.name }}"
                 />
                 <div class="mt-4 text-center">

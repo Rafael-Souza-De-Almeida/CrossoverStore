@@ -29,8 +29,9 @@ router
       .as('products.add')
       .use(middleware.auth_admin())
     router
-      .get('/image/:id', [ProductsController, 'showImage'])
+      .get('/image/show/:id', [ProductsController, 'showImage'])
       .where('id', router.matchers.number())
+      .as('show.image')
     router.delete('/:id', [ProductsController, 'delete']).where('id', router.matchers.number())
     router.put('/:id', [ProductsController, 'update']).where('id', router.matchers.number())
     router

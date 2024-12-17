@@ -1,5 +1,6 @@
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
+import User from '#models/user'
 
 const ProductsController = () => import('#controllers/products_controller')
 const AuthController = () => import('#controllers/auth_controller')
@@ -15,6 +16,11 @@ router.get('/sign-up', [UsersController, 'create']).as('users.create')
 router.post('/sign-up', [UsersController, 'save']).as('users.save')
 router.get('/user/edit', [UsersController, 'edit']).use(middleware.auth()).as('users.edit')
 router.post('/user/update', [UsersController, 'update']).use(middleware.auth()).as('users.update')
+router
+  .get('/user/profile-pic/:id', [UsersController, 'showProfilePic'])
+  .where('id', router.matchers.number())
+  .use(middleware.auth())
+  .as('user.profile_picture')
 
 router
   .group(() => {

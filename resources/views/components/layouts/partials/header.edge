@@ -54,10 +54,15 @@
         <div class="flex items-center space-x-4 relative" x-data="{ open: false }">
 
           <button @click="open = !open" class="flex space-x-4 items-center">
-            <img
-              src="https://avatar.iran.liara.run/username?username={{ auth.user.fullName }}"
-              class="rounded-full h-12 w-12"
-            />
+
+            @if(auth.user.profile_picture)
+              <img
+                src="{{ route('user.profile_picture', {id:auth.user.id}) }}"
+                class="rounded-full h-12 w-12 object-cover"
+              />
+            @else
+              <img src="/resources/assets/semfoto.png" class="rounded-full h-12 w-12" />
+            @endif
             <p class="text-white">
               Olá, {{ auth.user.fullName }}!
             </p>
@@ -84,7 +89,7 @@
         </div>
 
       @else
-      
+        
         <a href="{{ route('auth.create') }}">
 
           <button class="text-white w-24 py-3 px-4 bg-[#f66000] rounded-full hover:bg-[#f65e00d9]">
@@ -93,8 +98,8 @@
         </a>
 
       @endif
-      
-      
+        
+        
     </div>
 
   </nav>

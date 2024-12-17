@@ -25,6 +25,9 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column({ serializeAs: null })
   declare role: 'user' | 'admin'
 
+  @column()
+  declare profile_picture: string | null
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 

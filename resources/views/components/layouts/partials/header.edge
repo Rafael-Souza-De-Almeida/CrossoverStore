@@ -1,10 +1,9 @@
-
 <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js">
   
 </script>
 
 <header class="bg-black">
-  <nav class="flex justify-between items-center w-[92%] mx-auto">
+  <nav class="flex justify-between w-[88%] mx-auto items-center">
 
     <div class="w-24">
 
@@ -16,7 +15,7 @@
 
     <div>
 
-      <ul class="flex items-center gap-16">
+      <ul class="flex mx-auto gap-x-16 {{ auth.isAuthenticated? 'ml-32' : '' }}">
         <li>
           <a href="/" class="text-white hover:text-[#f66000] text-lg">Camisas</a>
         </li>
@@ -51,7 +50,7 @@
 
       @if(auth.isAuthenticated)
 
-        <div class="flex items-center space-x-4 relative" x-data="{ open: false }">
+        <div class="flex items-center space-x-4 relative" x-data="{ open: false }" x-init="open = false">
 
           <button @click="open = !open" class="flex space-x-4 items-center">
 
@@ -85,7 +84,10 @@
             </ul>
           </div>
 
-          @svg('heroicons:shopping-cart-solid', {class: "text-white w-8 h-24"})
+          <a href="{{ route('cart.show') }}">
+            @svg('heroicons:shopping-cart-solid', {class: "text-white w-8 h-24"})
+          </a>
+
         </div>
 
       @else

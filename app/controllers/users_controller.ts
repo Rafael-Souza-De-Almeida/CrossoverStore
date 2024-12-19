@@ -95,10 +95,14 @@ export default class UsersController {
     }
   }
 
-  async showProfilePic({ params, response, auth }: HttpContext) {
-    const user = await User.findOrFail(params.id)
+  async showProfilePic({ response, auth }: HttpContext) {
+    const user = auth.user
 
-    if (!user || !user.profile_picture) {
+    if (!user) {
+      return response.unauthorized('Usuário não autenticado')
+    }
+
+    if (!user.profile_picture) {
       return response.notFound('Imagem de perfil não encontrada')
     }
 

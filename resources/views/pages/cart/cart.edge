@@ -1,0 +1,42 @@
+@layouts.app()
+
+  @if(message)
+    <h1 class="text-red-500">
+      {{ message }}
+    </h1>
+  @else
+  
+    <h2>
+      Produtos no carrinho
+    </h2>
+    @each(product in result)
+
+      <div class="cart-item">
+        <img
+          class=""
+          src="{{ route('show.image', {id: product.productId}) }}"
+          alt="{{ product.$extras.name }}"
+        />
+
+        <p>
+          {{ product.$extras.name }}
+        </p>
+
+        <p class="item-subtotal">
+          {{ product.subtotal }}
+        </p>
+
+        <button id="delete-item" data-product-id="{{ product.productId }}">
+          Remover
+        </button>
+      </div>
+
+    @end
+    
+    <p>
+      Total: <span id="cart-total">{{ totalCart.$extras.total }}</span>
+    </p>
+
+  @endif
+  
+@end

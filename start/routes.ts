@@ -5,6 +5,7 @@ import User from '#models/user'
 const ProductsController = () => import('#controllers/products_controller')
 const AuthController = () => import('#controllers/auth_controller')
 const UsersController = () => import('#controllers/users_controller')
+const CartsController = () => import('#controllers/carts_controller')
 
 router.get('/', [ProductsController, 'index']).as('products.home')
 
@@ -16,11 +17,15 @@ router.get('/sign-up', [UsersController, 'create']).as('users.create')
 router.post('/sign-up', [UsersController, 'save']).as('users.save')
 router.get('/user/edit', [UsersController, 'edit']).use(middleware.auth()).as('users.edit')
 router.post('/user/update', [UsersController, 'update']).use(middleware.auth()).as('users.update')
+
 router
-  .get('/user/profile-pic/:id', [UsersController, 'showProfilePic'])
-  .where('id', router.matchers.number())
+  .get('/user/profile-pic/show', [UsersController, 'showProfilePic'])
   .use(middleware.auth())
   .as('user.profile_picture')
+
+router.get('/cart', [CartsController, 'show']).use(middleware.auth()).as('cart.show')
+router.post('/cart/add', [CartsController, 'add']).use(middleware.auth()).as('cart.add')
+router.delete('/cart/delete', [CartsController, 'delete']).use(middleware.auth()).as('cart.delete')
 
 router
   .group(() => {

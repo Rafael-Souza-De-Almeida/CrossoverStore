@@ -11,7 +11,14 @@
     @include('components/layouts/partials/header')
 
     {{{ await $slots.main() }}}
-    <!-- Slider main container -->
+    <script src = "/resources/js/addTocart.js">
+      
+    </script>
+
+    <script src = "/resources/js/removeItemCart.js">
+      
+    </script>
+
   </body>
   @include('components/layouts/partials/footer')
 </html>

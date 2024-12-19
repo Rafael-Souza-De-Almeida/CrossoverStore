@@ -1,0 +1,114 @@
+@layouts.app()
+
+  @if(products.length === 0)
+    <div class="p-24 mb-48">
+
+      <div>
+        <h1 class="text-primary text-center text-5xl mt-12">
+          Não Há produtos ainda...
+        </h1>
+      </div>
+    </div>
+  @else
+      
+    <div class="container mx-auto mt-12">
+
+      <div class="my-4 mr-8">
+        <span class="text-lg font-semibold mr-8">Ordenar por:</span>
+        <a
+          href="/products/type/{{ payload }}?page=1&order=desc"
+          class="px-4 py-2 {{ order === 'desc' ? 'bg-primary text-white' : 'bg-gray-200 text-gray-800' }} rounded-lg hover:bg-primary-dark"
+        >
+          Maior Preço
+        </a>
+        <a
+          href="/products/type/{{ payload }}?page=1&order=asc"
+          class="px-4 py-2 {{ order === 'asc' ? 'bg-primary text-white' : 'bg-gray-200 text-gray-800' }} rounded-lg hover:bg-primary-dark"
+        >
+          Menor Preço
+        </a>
+      </div>
+
+      <div class="grid gap-8 md:grid-cols-4 mt-8">
+        @each(product in products)
+          <div
+            class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 transform hover:scale-105"
+          >
+            <a href="{{ route('products.show', { id: product.id }) }}" class="hover:opacity-80 block">
+              <img
+                class="rounded-lg w-full h-128 object-cover"
+                src="{{ route('show.image', { id: product.id }) }}"
+                alt="{{ product.name }}"
+              />
+              <div class="mt-4 text-center">
+                <h2 class="text-xl font-semibold text-gray-800">
+                  {{ product.name }}
+                </h2>
+                <p class="text-xl font-bold text-primary mt-2">
+                  R${{ product.price.toFixed(2) }}
+                </p>
+              </div>
+            </a>
+            <button
+              class="text-white w-full h-12 bg-primary rounded-full hover:bg-[#d94e00] transition-colors duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg mt-4"
+            >
+              Detalhar
+                </button>
+          </div>
+        @endeach
+      </div>
+
+      <div class="flex justify-center items-center mt-16">
+        <div class="flex items-center space-x-4">
+
+          <a
+            href="/products/type/{{ payload }}?page=1&order={{ order }}"
+            class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-600 disabled:opacity-50"
+            {{ products.currentPage === 1 ? 'disabled' : '' }}
+          >
+            Primeira
+          </a>
+
+          <a
+            href="/products/type/{{ payload }}?page={{ products.currentPage - 1 > 1 ? products.currentPage - 1 : 1 }}&order={{ order }}"
+            class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50"
+            {{ products.currentPage === 1 ? 'disabled' : '' }}
+          >
+            Anterior
+          </a>
+
+          @each(anchor in products.getUrlsForRange(1, products.lastPage))
+            <a
+              href="/products/type/{{ payload }}?page={{ anchor.page }}&order={{ order }}"
+              class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-primary {{ products.currentPage === anchor.page ? 'bg-primary-500 text-white' : '' }}"
+            >
+              {{ anchor.page }}
+            </a>
+          @endeach
+          
+          
+          <a
+            href="/products/type/{{ payload }}?page={{ products.currentPage + 1 > products.lastPage ? products.currentPage : products.currentPage + 1 }}&order={{ order }}"
+            class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50"
+            {{ products.currentPage === products.lastPage ? 'disabled' : '' }}
+          >
+            Próxima
+          </a>
+
+          <a
+            href="/products/type/{{ payload }}?page={{ products.lastPage }}&order={{ order }}"
+            class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary disabled:opacity-50"
+            {{ products.currentPage === products.lastPage ? 'disabled' : '' }}
+          >
+            Última
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+
+  @endif
+      
+      
+@end

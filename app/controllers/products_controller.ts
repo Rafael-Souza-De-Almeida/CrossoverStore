@@ -9,26 +9,33 @@ import { Application } from '@adonisjs/core/app'
 
 export default class ProductsController {
   async index({ view }: HttpContext) {
-    const allProducts = await Product.all()
+    const allProducts = await Product.query().limit(10)
 
     return view.render('pages/home', { products: allProducts })
   }
 
-  async findByType({ request }: HttpContext) {
+  async findByType({ request, view, params }: HttpContext) {
     const page = request.input('page', 1)
     const limit = 10
+    const order = request.input('order', 'asc')
 
-    const payload = request.only(['type'])
+    const payload = params.type
 
     const query = Product.query()
 
-    if (payload.type && payload.type.length > 0) {
-      query.where('type', 'like', `%${payload.type}%`)
+    if (payload && payload.length > 0) {
+      query.where('type', payload)
+    }
+
+    if (order === 'desc') {
+      query.orderBy('price', 'desc')
+    } else {
+      query.orderBy('price', 'asc')
     }
 
     const products = await query.paginate(page, limit)
 
-    return products
+    return view.render('pages/types/type', { products, payload, order })
   }
 
   async create({ request, response }: HttpContext) {

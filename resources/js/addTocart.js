@@ -47,7 +47,11 @@ document.addEventListener('DOMContentLoaded', () => {
         alert(data.message)
       }
     } catch (error) {
-      alert('Erro ao processar a requisição.')
+      if (error.response && error.response.data && error.response.data.message) {
+        alert(error.response.data.message)
+      } else {
+        alert('Erro ao processar a requisição')
+      }
     }
   })
 })

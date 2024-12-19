@@ -17,9 +17,9 @@ router.get('/sign-up', [UsersController, 'create']).as('users.create')
 router.post('/sign-up', [UsersController, 'save']).as('users.save')
 router.get('/user/edit', [UsersController, 'edit']).use(middleware.auth()).as('users.edit')
 router.post('/user/update', [UsersController, 'update']).use(middleware.auth()).as('users.update')
-
 router
-  .get('/user/profile-pic/show', [UsersController, 'showProfilePic'])
+  .get('/user/profile-pic/:id', [UsersController, 'showProfilePic'])
+  .where('id', router.matchers.number())
   .use(middleware.auth())
   .as('user.profile_picture')
 
@@ -34,7 +34,7 @@ router
       .where('id', router.matchers.number())
       .as('products.show')
 
-    router.get('/type', [ProductsController, 'findByType'])
+    router.get('/type/:type', [ProductsController, 'findByType']).as('find.type')
     router
       .post('/add', [ProductsController, 'create'])
       .as('products.add')
@@ -43,7 +43,10 @@ router
       .get('/image/show/:id', [ProductsController, 'showImage'])
       .where('id', router.matchers.number())
       .as('show.image')
-    router.delete('/:id', [ProductsController, 'delete']).where('id', router.matchers.number())
+    router
+      .delete('/:id', [ProductsController, 'delete'])
+      .where('id', router.matchers.number())
+      .use(middleware.auth_admin())
     router.put('/:id', [ProductsController, 'update']).where('id', router.matchers.number())
     router
       .get('/addNew', [ProductsController, 'addForm'])

@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = await response.json()
 
         if (response.ok) {
-          const itemSubtotal = parseFloat(subtotalElement.textContent || '0')
-          const currentTotal = parseFloat(totalElement.textContent || '0')
+          const itemSubtotal = parseFloat(subtotalElement.textContent || 0)
+          const currentTotal = parseFloat(totalElement.textContent || 0)
           const updatedTotal = currentTotal - itemSubtotal
 
           totalElement.textContent = updatedTotal.toFixed(2)

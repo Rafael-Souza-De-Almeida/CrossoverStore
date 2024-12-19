@@ -44,34 +44,6 @@
 
         </div>
 
-        @if(product.type.toLowerCase() === "camisa")
-          <div class="mt-6">
-
-            <h3 class="text-primary text-lg mb-8 ">
-              Tamanhos
-            </h3>
-
-            <div class="flex space-x-8 mb-8">
-
-              <button
-                class="outline outline-2 border-[#f66000] text-primary p-2 w-12 hover:bg-[#f66000] hover:text-white"
-              >P</button>
-              <button
-                class="outline outline-2 border-[#f66000] text-primary p-2 w-12 hover:bg-[#f66000] hover:text-white"
-              >M</button>
-              <button
-                class="outline outline-2 border-[#f66000] text-primary p-2 w-12 hover:bg-[#f66000] hover:text-white"
-              >G</button>
-              <button
-                class="outline outline-2 border-[#f66000] text-primary p-2 w-12 hover:bg-[#f66000] hover:text-white"
-              >XL</button>
-
-            </div>
-
-          </div>
-
-        @end
-         
         <a href="{{ route('cart.add') }}">
           <button
             id="add-cart"

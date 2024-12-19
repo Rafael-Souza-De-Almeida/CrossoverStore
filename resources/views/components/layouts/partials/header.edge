@@ -17,23 +17,31 @@
 
       <ul class="flex mx-auto gap-x-16 {{ auth.isAuthenticated? 'ml-32' : '' }}">
         <li>
-          <a href="/" class="text-white hover:text-[#f66000] text-lg">Camisas</a>
+          <a
+            href="{{ route('find.type', { type: 'Camisa' }) }}"
+            class="text-white hover:text-[#f66000] text-lg"
+          >Camisas</a>
         </li>
 
         <li>
-          <a href="/" class="text-white hover:text-[#f66000] text-lg">Bolas</a>
+          <a
+            href="{{ route('find.type', { type: 'Bola' }) }}"
+            class="text-white hover:text-[#f66000] text-lg"
+          >Bolas</a>
         </li>
 
         <li>
-          <a href="/" class="text-white hover:text-[#f66000] text-lg">Acessórios</a>
+          <a
+            href="{{ route('find.type', { type: 'Acessorio' }) }}"
+            class="text-white hover:text-[#f66000] text-lg"
+          >Acessórios</a>
         </li>
 
         <li>
-          <a href="/" class="text-white hover:text-[#f66000] text-lg">Tênis</a>
-        </li>
-
-        <li>
-          <a href="/" class="text-white hover:text-[#f66000] text-lg">Times</a>
+          <a
+            href="{{ route('find.type', { type: 'Tenis' }) }}"
+            class="text-white hover:text-[#f66000] text-lg"
+          >Tênis</a>
         </li>
 
         @if(auth.isAuthenticated && auth.user.role === 'admin')

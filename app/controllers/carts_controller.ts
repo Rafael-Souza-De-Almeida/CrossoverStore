@@ -3,7 +3,8 @@ import CartItem from '#models/cart_item'
 import Product from '#models/product'
 import User from '#models/user'
 import MakeView from '@adonisjs/core/commands/make/view'
-import type { HttpContext } from '@adonisjs/core/http'
+import { Exception } from '@adonisjs/core/exceptions'
+import { Redirect, type HttpContext } from '@adonisjs/core/http'
 import { messages } from '@vinejs/vine/defaults'
 
 export default class CartsController {
@@ -28,6 +29,10 @@ export default class CartsController {
 
   async add({ auth, request, response }: HttpContext) {
     const user = await auth.authenticate()
+
+    if (!user) {
+      throw new Error('Faça Login Para adicionar o produto ao carrinho...')
+    }
 
     const { product_id, quantity } = request.only(['product_id', 'quantity'])
 
